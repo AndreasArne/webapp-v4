@@ -16,6 +16,9 @@ export default function PickList({route, navigation}) {
                 {item.name} - {item.amount} - {item.location}
         </Text>
     });
+    console.log(order);
+
+    let available_stock = order.order_items.some(product => product.amount > product.stock);
 
     return (
         <View>
@@ -26,8 +29,15 @@ export default function PickList({route, navigation}) {
             <Text>Produkter:</Text>
 
             {orderItemsList}
-
-            <Button title="Plocka order" onPress={pick}/>
+            { !available_stock &&
+                <Button title="Plocka order" onPress={pick}/>
+            }
+            {/* https://reactjs.org/docs/conditional-rendering.html */}
+            {/*             
+            {allInStock
+                ? <Button title="Plocka order" onPress={pick} />
+                : <Text style={{ ...Typography.normal }}>Ordern går inte att packa, då varor saknas.</Text>
+            } */}
         </View>
     )
 };
