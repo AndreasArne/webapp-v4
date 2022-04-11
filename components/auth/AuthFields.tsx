@@ -11,7 +11,7 @@ export default function AuthFields({ auth, setAuth, title, submit, navigation })
                 onChangeText={(content: string) => {
                     setAuth({ ...auth, email: content })
                 }}
-                value={auth?.email} 
+                value={auth?.email}
                 keyboardType="email-address"
             />
             <Text style={Typography.label}>Lösenord</Text>

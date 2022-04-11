@@ -4,9 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Stock from './components/Stock.tsx';
 import Pick from "./components/Pick.tsx";
 import Deliveries from "./components/Deliveries.tsx";
+import Invoices from "./components/Invoices.tsx";
+import Auth from "./components/auth/Auth";
+import authModel from "./models/auth";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { useState, useEffect } from 'react';
 
 const Tab = createBottomTabNavigator();
 const routeIcons = {
