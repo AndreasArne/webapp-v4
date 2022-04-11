@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Stock from './components/Stock.tsx';
 import Pick from "./components/Pick.tsx";
+import Deliveries from "./components/Deliveries.tsx";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -28,6 +29,7 @@ export default function App() {
         >
           <Tab.Screen name="Lager" component={Stock} />
           <Tab.Screen name="Plock" component={Pick} />
+          <Tab.Screen name="Inleveranse" component={Deliveries} />
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
