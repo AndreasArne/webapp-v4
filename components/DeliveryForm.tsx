@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Platform, ScrollView, Text, TextInput, Button, View } from "react-native";
 import { Base, Typography, Forms } from '../styles';
+import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import deliveryModel from "../models/deliveries";
@@ -9,6 +10,30 @@ import productModel from "../models/products";
 import Delivery from '../interfaces/delivery';
 import Product from '../interfaces/product';
 
+function ProductDropDown(props) {
+    const [products, setProducts] = useState<Product[]>([]);
+    let productsHash: any = {};
+
+    useEffect(async () => {
+        setProducts(await productModel.getProducts());
+    }, []);
+
+    const itemsList = products.map((prod, index) => {
+        productsHash[prod.id] = prod;
+        return <Picker.Item key={index} label={prod.name} value={prod.id} />;
+    });
+
+    return (
+        <Picker
+            selectedValue={props.delivery?.product_id}
+            onValueChange={(itemValue) => {
+                props.setDelivery({ ...props.delivery, product_id: itemValue });
+                props.setCurrentProduct(productsHash[itemValue]);
+            }}>
+            {itemsList}
+        </Picker>
+    )
+}
 
 function DateDropDown(props) {
     const [dropDownDate, setDropDownDate] = useState<Date>(new Date());
@@ -42,7 +67,7 @@ function DateDropDown(props) {
     );
 }
 
-export default function DeliveryForm({ navigation }) {
+export default function DeliveryForm({ navigation, setProducts }) {
     const [delivery, setDelivery] = useState<Partial<Delivery>>({});
     const [currentProduct, setCurrentProduct] = useState<Partial<Product>>({});
 
@@ -56,6 +81,8 @@ export default function DeliveryForm({ navigation }) {
 
         await productModel.updateProduct(updatedProduct);
 
+        setProducts(await productModel.getProducts());
+
         navigation.navigate("List", { reload: true });
     }
 
@@ -64,7 +91,11 @@ export default function DeliveryForm({ navigation }) {
             <Text style={{ ...Typography.header2 }}>Ny inleverans</Text>
 
             <Text style={{ ...Typography.label }}>Produkt</Text>
-
+            <ProductDropDown
+                delivery={delivery}
+                setDelivery={setDelivery}
+                setCurrentProduct={setCurrentProduct}
+            />
 
             <Text style={{ ...Typography.label }}>Datum</Text>
             <DateDropDown
