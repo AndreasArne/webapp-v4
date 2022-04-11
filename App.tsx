@@ -12,8 +12,18 @@ const Tab = createBottomTabNavigator();
 const routeIcons = {
   "Lager": "home",
   "Plock": "list",
+  "Inleverans": "car",
+  "Logga in": "lock-closed",
+  "Faktura": "cash-outline",
 };
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+
+  useEffect(async () => {
+    setIsLoggedIn(await authModel.loggedIn() /* Vi kommer tillbaka till denna funktion. */);
+  }, []);
+
+
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
@@ -30,6 +40,12 @@ export default function App() {
           <Tab.Screen name="Lager" component={Stock} />
           <Tab.Screen name="Plock" component={Pick} />
           <Tab.Screen name="Inleveranse" component={Deliveries} />
+          {isLoggedIn ?
+            <Tab.Screen name="Faktura" component={Invoices} /> :
+            <Tab.Screen name="Logga in">
+              {() => <Auth setIsLoggedIn={setIsLoggedIn} />}
+            </Tab.Screen>
+          }
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
