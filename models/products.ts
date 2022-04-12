@@ -11,7 +11,6 @@ const products = {
     },
     updateProduct: async function updateProduct(product) {
         product.api_key = config.api_key
-        console.log(product);
         
         const response = await fetch(`${config.base_url}/products`, {
             body: JSON.stringify(product),
@@ -21,7 +20,6 @@ const products = {
             method: 'PUT'
         });
         // const result = await response.json();
-        console.log(response);
     },
 };
 

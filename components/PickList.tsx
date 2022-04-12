@@ -16,7 +16,6 @@ export default function PickList({route, navigation}) {
                 {item.name} - {item.amount} - {item.location}
         </Text>
     });
-    console.log(order);
 
     let available_stock = order.order_items.some(product => product.amount > product.stock);
 

@@ -14,7 +14,6 @@ const orders = {
 
     updateOrder: async function updateOrder(order) {
         order.api_key = config.api_key
-        console.log(order);
 
         const response = await fetch(`${config.base_url}/orders`, {
             body: JSON.stringify(order),
@@ -24,13 +23,11 @@ const orders = {
             method: 'PUT'
         });
         // const result = await response.json();
-        console.log(response.status);
     },
 
     pickOrder: async function pickOrder(order) {
         // kolla att det finns tillräckligt med produkter
         let any_out_of_stock = order.order_items.some(product => product.amount > product.stock);
-        console.log(any_out_of_stock);
         
 
         if (!any_out_of_stock) {

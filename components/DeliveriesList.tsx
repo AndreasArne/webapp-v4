@@ -5,7 +5,7 @@ import Delivery from '../interfaces/delivery';
 import deliveryModel from "../models/deliveries";
 import { Base, Typography, Card } from '../styles';
 
-export default function OrderList({ navigation }) {
+export default function OrderList({ route, navigation }) {
     const { reload } = route.params || false;
     const [allDeliveries, setAllDeliveries] = useState<Delivery[]>([]);
 
