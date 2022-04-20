@@ -1,6 +1,7 @@
+// auth/AuthFields.tsx
 import { View, Text, TextInput, Button } from "react-native";
 import { Typography, Forms, Base } from '../../styles';
-
+//                                   dict, setDict,         func  
 export default function AuthFields({ auth, setAuth, title, submit, navigation }) {
     return (
         <View style={Base.base}>

@@ -1,4 +1,6 @@
+// models/storage.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// expo install @react-native-async-storage/async-storage
 
 const storage = {
     storeToken: async function storeToken(token: string) {

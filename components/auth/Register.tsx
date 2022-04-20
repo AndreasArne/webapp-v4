@@ -1,3 +1,4 @@
+// auth/Register.tsx
 import Auth from '../../interfaces/auth';
 import { useState } from 'react';
 import AuthModel from '../../models/auth';

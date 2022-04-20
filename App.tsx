@@ -21,10 +21,12 @@ const routeIcons = {
   "Faktura": "cash-outline",
 };
 export default function App() {
+  // vill ha kolla i flera komponenter om vi är inloggade eller inte.
+  // därför lägger vi den här och skickar ner till komponenterna.
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
 
   useEffect(async () => {
-    setIsLoggedIn(await authModel.loggedIn() /* Vi kommer tillbaka till denna funktion. */);
+    setIsLoggedIn(await authModel.loggedIn());
   }, []);
 
 
