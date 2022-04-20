@@ -6,6 +6,7 @@ import Pick from "./components/Pick.tsx";
 import Deliveries from "./components/Deliveries.tsx";
 import Invoices from "./components/Invoices.tsx";
 import Auth from "./components/auth/Auth";
+import Ship from "./components/ship/Ship";
 import authModel from "./models/auth";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,6 +20,7 @@ const routeIcons = {
   "Inleverans": "car",
   "Logga in": "lock-closed",
   "Faktura": "cash-outline",
+  "Skicka": "local_shipping",
 };
 export default function App() {
   // vill ha kolla i flera komponenter om vi är inloggade eller inte.
@@ -46,6 +48,7 @@ export default function App() {
           <Tab.Screen name="Lager" component={Stock} />
           <Tab.Screen name="Plock" component={Pick} />
           <Tab.Screen name="Inleveranse" component={Deliveries} />
+          <Tab.Screen name="Skicka" component={Ship} />
           {isLoggedIn ?
             <Tab.Screen name="Faktura" component={Invoices} /> :
             <Tab.Screen name="Logga in">
