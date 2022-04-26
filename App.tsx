@@ -20,7 +20,6 @@ const routeIcons = {
   "Inleverans": "car",
   "Logga in": "lock-closed",
   "Faktura": "cash-outline",
-  "Skicka": "local_shipping",
 };
 export default function App() {
   // vill ha kolla i flera komponenter om vi är inloggade eller inte.

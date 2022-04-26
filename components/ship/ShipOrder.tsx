@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { Base, Typography } from "../../styles";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
 
-import getCoordinates from "../../../models/nominatim";
+import getCoordinates from "../../models/nominatim";
 
 export default function ShipOrder({ route }) {
     const { order } = route.params;
@@ -12,6 +13,13 @@ export default function ShipOrder({ route }) {
     const [locationMarker, setLocationMarker] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
+    const address = (
+        <View>
+            <Text style={Typography.header3}>{order.name}</Text>
+            <Text style={Typography.normal}>{order.address}</Text>
+            <Text style={Typography.normal}>{order.zip} {order.city}</Text>
+        </View>
+    );
 
     useEffect(() => {
         (async () => {
@@ -19,8 +27,8 @@ export default function ShipOrder({ route }) {
 
             if (status !== "granted") {
                 setErrorMessage("Permission to access location was denied);")
+                return;
             }
-            return;
 
             const currentLocation = await Location.getCurrentPositionAsync({});
             setLocationMarker(
@@ -40,7 +48,8 @@ export default function ShipOrder({ route }) {
     useEffect(() =>{
         (async () => {
             const results = await getCoordinates(`${order.address}, ${order.city}`);
-
+            console.log(results);
+            
             setMarker(<Marker
                 coordinate={{ latitude: parseFloat(results[0].lat), longitude: parseFloat(results[0].lon) }}
                 title={results[0].display_name}
@@ -49,16 +58,17 @@ export default function ShipOrder({ route }) {
     }, []);
 
     return (
-        <View>
-            <Text>Skicka order</Text>
-            <View style={styles.map}>
+        <View style={Base.base}>
+            <Text style={Typography.header2}>Skicka order</Text>
+            {address}
+            <View style={styles.container}>
                 <MapView
                     style={styles.map}
                     initialRegion={{
                         latitude: 56.1612,
                         longitude: 15.5869,
-                        latitudeDelta: 0.1,
-                        longitudeDelta: 0.1,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
                     }}>
                     {marker}
                     {locationMarker}
